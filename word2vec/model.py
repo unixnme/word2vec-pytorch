@@ -44,3 +44,10 @@ class SkipGramModel(nn.Module):
             for wid, w in id2word.items():
                 e = ' '.join(map(lambda x: str(x), embedding[wid]))
                 f.write('%s %s\n' % (w, e))
+
+    def load_embedding(self, file:str):
+        with open(file, 'r') as f:
+            tokens = f.readline().split()
+            num_word, dim = int(tokens[0]), int(tokens[1])
+            for line in f:
+                pass
