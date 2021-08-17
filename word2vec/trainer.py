@@ -46,11 +46,11 @@ class Word2VecTrainer:
                     pos_v = sample_batched[1].to(self.device)
                     neg_v = sample_batched[2].to(self.device)
 
-                    scheduler.step()
                     optimizer.zero_grad()
                     loss = self.skip_gram_model.forward(pos_u, pos_v, neg_v)
                     loss.backward()
                     optimizer.step()
+                    scheduler.step()
 
                     running_loss = running_loss * 0.9 + loss.item() * 0.1
                     if i > 0 and i % 500 == 0:
