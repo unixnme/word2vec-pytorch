@@ -34,7 +34,8 @@ class Word2VecTrainer:
         for iteration in range(self.iterations):
 
             print("\n\n\nIteration: " + str(iteration + 1))
-            optimizer = optim.SparseAdam(self.skip_gram_model.parameters(), lr=self.initial_lr)
+            params = list(self.skip_gram_model.parameters())
+            optimizer = optim.SparseAdam(params, lr=self.initial_lr)
             scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, len(self.dataloader))
 
             running_loss = 0.0
@@ -59,5 +60,11 @@ class Word2VecTrainer:
 
 
 if __name__ == '__main__':
-    w2v = Word2VecTrainer(input_file="input.txt", output_file="out.vec")
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--input', type=str, required=True)
+    parser.add_argument('--output', type=str, required=True)
+    args = parser.parse_args()
+
+    w2v = Word2VecTrainer(input_file=args.input, output_file=args.output)
     w2v.train()
