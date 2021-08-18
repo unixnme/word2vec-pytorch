@@ -8,8 +8,8 @@ from word2vec.model import SkipGramModel
 
 
 class Word2VecTrainer:
-    def __init__(self, input_file, output_file, emb_dimension=100, batch_size=32, window_size=5, iterations=3,
-                 initial_lr=0.001, min_count=12):
+    def __init__(self, input_file, output_file, emb_dimension=100, batch_size=1024, window_size=5, iterations=3,
+                 initial_lr=0.01, min_count=12):
 
         self.data = DataReader(input_file, min_count)
         dataset = Word2vecDataset(self.data, window_size)
